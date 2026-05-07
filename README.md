@@ -1,3 +1,7 @@
+# Patches
+
+* [rfc7692#section-7.1.2.2 non-conforming servers](https://github.com/decatur/tungstenite-rs-deflate-patch/commit/0de12efa3f8140c2e093bcfbd791f5dbcc4b8d43)
+
 # Tungstenite
 
 Lightweight stream-based WebSocket implementation for [Rust](https://www.rust-lang.org/).
