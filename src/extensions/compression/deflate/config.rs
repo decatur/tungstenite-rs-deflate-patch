@@ -583,8 +583,15 @@ impl PermessageDeflateConfig {
 
         let max_window_bits = [
             server_max_window_bits.map(|bits| (SERVER_MAX_WINDOW_BITS, Some(bits.to_string()))),
-            client_max_window_bits
-                .map(|bits| (CLIENT_MAX_WINDOW_BITS, bits.as_ref().map(ToString::to_string))),
+            // In https://datatracker.ietf.org/doc/html/rfc7692#section-7.1.2.2
+            //     A client MAY include the "client_max_window_bits" extension parameter
+            //     in an extension negotiation offer.  This parameter has no value or a
+            //     decimal integer value
+            // Some websocket serves do not tolerate a client_max_window_bits parameter without value.
+            // So we patch https://github.com/openai-oss-forks/tungstenite-rs to not include this parameter at all.
+            
+            //  client_max_window_bits
+            //    .map(|bits| (CLIENT_MAX_WINDOW_BITS, bits.as_ref().map(ToString::to_string))),
         ]
         .into_iter()
         .flatten();
